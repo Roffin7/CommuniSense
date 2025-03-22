@@ -1,0 +1,13 @@
+Flask
+torch
+scipy
+pillow
+torchaudio
+torchvision
+transformers
+ultralytics
+opencv-python
+ffmpeg-python
+requests
+huggingface-hub
+soundfile

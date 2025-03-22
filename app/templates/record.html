@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Speech Analysis</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/styles.css') }}"
+    />
+    <style>
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-gray-900 min-h-screen text-gray-100 flex flex-col items-center p-6"
+  >
+    <!-- Navigation -->
+    <nav
+      class="w-full bg-gray-800 shadow-lg py-4 px-6 rounded-lg flex justify-between items-center"
+    >
+      <a
+        href="{{ url_for('home') }}"
+        class="text-3xl font-extrabold text-purple-400"
+        >CommuniSense</a
+      >
+    </nav>
+
+    <!-- Main Container -->
+    <div class="max-w-4xl w-full mt-10 bg-gray-800 p-8 rounded-xl shadow-xl">
+      <h1 class="text-4xl font-bold text-purple-400 text-center">
+        Speech & Face Analysis
+      </h1>
+    </div>
+
+    <!-- Upload & Select Video -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 w-full max-w-4xl">
+      <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+        <h3 class="text-xl text-gray-300 mb-4">Upload New Video</h3>
+        <input
+          type="file"
+          id="videoFile"
+          class="bg-gray-700 p-2 rounded-md w-full mb-4"
+        />
+        <button
+          onclick="uploadVideo()"
+          class="w-full bg-purple-600 hover:bg-purple-700 px-6 py-2 rounded-lg transition"
+        >
+          Upload & Analyze
+        </button>
+      </div>
+      <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+        <h3 class="text-xl text-gray-300 mb-4">Choose Existing File</h3>
+        <select
+          id="existingFiles"
+          class="bg-gray-700 p-2 rounded-md w-full mb-4"
+        >
+          <option value="">Loading...</option>
+        </select>
+        <button
+          onclick="analyzeExistingFile()"
+          class="w-full bg-purple-600 hover:bg-purple-700 px-6 py-2 rounded-lg transition"
+        >
+          Analyze Selected File
+        </button>
+      </div>
+    </div>
+
+    <!-- Loading Animation -->
+    <div id="loading" class="hidden mt-6">
+      <div class="flex justify-center items-center">
+        <div
+          class="animate-spin rounded-full h-16 w-16 border-t-4 border-purple-600"
+        ></div>
+      </div>
+      <p class="text-center text-gray-300 mt-2">Analyzing... Please wait.</p>
+    </div>
+
+    <!-- Results Section -->
+    <div class="max-w-4xl w-full mt-8 bg-gray-800 p-8 rounded-lg shadow-lg">
+      <h3 class="text-2xl text-purple-400 font-semibold text-center">
+        Analysis Results
+      </h3>
+
+      <!-- Feedback Row -->
+      <div class="flex justify-center space-x-4 mt-4">
+        <p
+          id="feedback"
+          class="bg-gray-700 text-lg p-4 rounded-lg shadow-lg w-full text-center"
+        >
+          Feedback: Awaiting Analysis...
+        </p>
+      </div>
+
+      <!-- Face Result -->
+      <p id="faceResult" class="text-lg text-gray-300 text-center mt-6">
+        Face Analysis: Awaiting Input...
+      </p>
+
+      <!-- Score Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+        <div class="bg-gray-700 p-6 rounded-lg shadow-lg text-center">
+          <h4 class="text-purple-400 text-xl font-semibold">Clarity Score</h4>
+          <p id="clarityScore" class="text-lg text-gray-300 mt-2">0/100</p>
+        </div>
+        <div class="bg-gray-700 p-6 rounded-lg shadow-lg text-center">
+          <h4 class="text-purple-400 text-xl font-semibold">Speaking Pace</h4>
+          <p id="speakingPace" class="text-lg text-gray-300 mt-2">N/A</p>
+        </div>
+        <div class="bg-gray-700 p-6 rounded-lg shadow-lg text-center">
+          <h4 class="text-purple-400 text-xl font-semibold">Overall Score</h4>
+          <p id="speakingScore" class="text-lg text-gray-300 mt-2">0</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-12 bg-gray-900 rounded-xl p-8 border border-gray-700 shadow-lg text-center">
+        <h3 class="text-2xl font-bold text-purple-400 mb-4">🎯 Share Your Score</h3>
+        <p class="text-gray-300 mb-6">Proud of your results? Share your speaking score with others and inspire them!</p>
+        
+        <button class="bg-purple-600 hover:bg-purple-500 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-all">
+            📢 Share Now
+        </button>
+    </div>
+    
+    <div class="mt-12 bg-gray-900 rounded-xl p-10 border border-gray-700 mb-12 shadow-lg">
+        <h3 class="text-2xl font-bold text-purple-400 text-center mb-6">🎤 Recording Tips</h3>
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Environment Section -->
+            <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:shadow-lg transition-shadow">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="text-purple-300 text-2xl">🌿</div>
+                    <h4 class="text-lg font-semibold text-purple-300">Environment</h4>
+                </div>
+                <ul class="list-none space-y-3 text-gray-300">
+                    <li class="flex items-center"><span class="text-purple-400 mr-2">✔</span> Quiet, well-lit space</li>
+                    <li class="flex items-center"><span class="text-purple-400 mr-2">✔</span> Clean background</li>
+                    <li class="flex items-center"><span class="text-purple-400 mr-2">✔</span> Stable internet connection</li>
+                    <li class="flex items-center"><span class="text-purple-400 mr-2">✔</span> Test microphone beforehand</li>
+                </ul>
+            </div>
+    
+            <!-- Delivery Section -->
+            <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:shadow-lg transition-shadow">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="text-purple-300 text-2xl">🎭</div>
+                    <h4 class="text-lg font-semibold text-purple-300">Delivery</h4>
+                </div>
+                <ul class="list-none space-y-3 text-gray-300">
+                    <li class="flex items-center"><span class="text-purple-400 mr-2">✔</span> Speak clearly at a moderate pace</li>
+                    <li class="flex items-center"><span class="text-purple-400 mr-2">✔</span> Maintain eye contact with the camera</li>
+                    <li class="flex items-center"><span class="text-purple-400 mr-2">✔</span> Use natural hand gestures</li>
+                    <li class="flex items-center"><span class="text-purple-400 mr-2">✔</span> Practice good posture</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+
+    <script src="{{ url_for('static', filename='js/analyze.js') }}"></script>
+  </body>
+</html>

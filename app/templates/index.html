@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Communication Evaluator - AI-Powered Speech Analysis</title>
+    <script type="module" crossorigin src="{{ url_for('static', filename='js/index.js') }}"></script>
+    <link rel="stylesheet" crossorigin href="{{ url_for('static', filename='css/styles.css') }}" />
+  </head>
+  <body class="bg-gray-900 min-h-screen text-gray-100">
+    <!-- Navigation -->
+    <nav class="bg-gray-800 border-b border-gray-700 sticky top-0 z-50">
+      <div class="container mx-auto px-4 py-4">
+        <div class="flex justify-between items-center">
+          <a href="{{ url_for('home') }}" class="text-2xl font-bold text-purple-400">CommuniSense</a>
+          <div class="hidden md:flex space-x-8">
+            <a
+              href="#features"
+              class="text-gray-300 hover:text-purple-400 transition-colors"
+              >Features</a
+            >
+            <a
+              href="#how-it-works"
+              class="text-gray-300 hover:text-purple-400 transition-colors"
+              >How It Works</a
+            >
+            <a
+              href="#about"
+              class="text-gray-300 hover:text-purple-400 transition-colors"
+              >About</a
+            >
+            <a
+              href="#contact"
+              class="text-gray-300 hover:text-purple-400 transition-colors"
+              >Contact</a
+            >
+            <a
+              href="#register"
+              class="text-gray-300 hover:text-purple-400 transition-colors"
+              >Register</a
+            >
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="bg-gradient-to-b from-gray-800 to-gray-900 py-20">
+      <div class="container mx-auto px-4 text-center">
+        <h1
+          class="text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-400"
+        >
+          Master Your Communication
+        </h1>
+        <p class="text-xl text-gray-300 max-w-2xl mx-auto mb-8">
+          Elevate your speaking skills with AI-powered analysis of speech
+          patterns, facial expressions, and delivery techniques.
+        </p>
+        <a
+          href="{{ url_for('analyze_vdo') }}"
+          class="inline-block bg-purple-600 hover:bg-purple-700 px-8 py-4 rounded-lg text-lg font-semibold transition-colors"
+        >
+          Try It Now
+        </a>
+      </div>
+    </header>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12 text-purple-400">
+          Advanced Analysis Features
+        </h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="bg-gray-800 rounded-xl p-6 border border-gray-700">
+            <div
+              class="h-14 w-14 bg-purple-600 rounded-lg flex items-center justify-center mb-6"
+            >
+              <svg
+                class="h-8 w-8 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
+                />
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold mb-4 text-purple-300">
+              Speech Analysis
+            </h3>
+            <p class="text-gray-400">
+              Real-time transcription and analysis of speech patterns, tone, and
+              clarity using advanced AI algorithms.
+            </p>
+          </div>
+
+          <div class="bg-gray-800 rounded-xl p-6 border border-gray-700">
+            <div
+              class="h-14 w-14 bg-pink-600 rounded-lg flex items-center justify-center mb-6"
+            >
+              <svg
+                class="h-8 w-8 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold mb-4 text-purple-300">
+              Facial Expression
+            </h3>
+            <p class="text-gray-400">
+              Advanced facial recognition to analyze engagement, confidence, and
+              emotional connection with your audience.
+            </p>
+          </div>
+
+          <div class="bg-gray-800 rounded-xl p-6 border border-gray-700">
+            <div
+              class="h-14 w-14 bg-indigo-600 rounded-lg flex items-center justify-center mb-6"
+            >
+              <svg
+                class="h-8 w-8 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                />
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold mb-4 text-purple-300">
+              Performance Metrics
+            </h3>
+            <p class="text-gray-400">
+              Detailed analytics on speaking pace, clarity, filler words, and
+              overall delivery effectiveness.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="py-20 bg-gray-800">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12 text-purple-400">
+          How It Works
+        </h2>
+        <div class="max-w-3xl mx-auto">
+          <div class="flex flex-col gap-8">
+            <div class="flex items-start gap-4">
+              <div
+                class="flex-shrink-0 w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center"
+              >
+                <span class="font-bold">1</span>
+              </div>
+              <div>
+                <h3 class="text-xl font-semibold mb-2 text-purple-300">
+                  Record Your Speech
+                </h3>
+                <p class="text-gray-400">
+                  Use our professional recording interface to capture your
+                  presentation or speech. Our system records both video and
+                  audio for comprehensive analysis.
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div
+                class="flex-shrink-0 w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center"
+              >
+                <span class="font-bold">2</span>
+              </div>
+              <div>
+                <h3 class="text-xl font-semibold mb-2 text-purple-300">
+                  AI Analysis
+                </h3>
+                <p class="text-gray-400">
+                  Our advanced AI processes your recording, analyzing speech
+                  patterns, facial expressions, and delivery techniques in
+                  real-time.
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div
+                class="flex-shrink-0 w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center"
+              >
+                <span class="font-bold">3</span>
+              </div>
+              <div>
+                <h3 class="text-xl font-semibold mb-2 text-purple-300">
+                  Get Detailed Feedback
+                </h3>
+                <p class="text-gray-400">
+                  Receive comprehensive feedback with actionable insights to
+                  improve your communication skills.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12 text-purple-400">
+          About Us
+        </h2>
+        <div class="max-w-3xl mx-auto text-center">
+          <p class="text-gray-300 mb-6">
+            Communication Evaluator was born from a simple idea: everyone
+            deserves access to professional-grade communication coaching. Our
+            AI-powered platform makes it possible for anyone to improve their
+            public speaking and presentation skills through detailed analysis
+            and personalized feedback.
+          </p>
+          <p class="text-gray-300">
+            Built by a team of communication experts, AI specialists, and public
+            speaking coaches, our tool combines cutting-edge technology with
+            proven communication principles to help you become a more effective
+            communicator.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Register Section -->
+    <section id="register" class="py-20 bg-gray-800">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12 text-purple-400">
+          Create Your Account
+        </h2>
+        <div
+          class="max-w-md mx-auto bg-gray-900 rounded-xl p-8 border border-gray-700"
+        >
+          <form class="space-y-6">
+            <div>
+              <label
+                for="name"
+                class="block text-sm font-medium text-gray-300 mb-2"
+                >Full Name</label
+              >
+              <input
+                type="text"
+                id="name"
+                name="name"
+                class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              />
+            </div>
+            <div>
+              <label
+                for="email"
+                class="block text-sm font-medium text-gray-300 mb-2"
+                >Email Address</label
+              >
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              />
+            </div>
+            <div>
+              <label
+                for="password"
+                class="block text-sm font-medium text-gray-300 mb-2"
+                >Password</label
+              >
+              <input
+                type="password"
+                id="password"
+                name="password"
+                class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              />
+            </div>
+            <button
+              type="submit"
+              class="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 rounded-lg transition-colors"
+            >
+              Create Account
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12 text-purple-400">
+          Contact Us
+        </h2>
+        <div
+          class="max-w-md mx-auto bg-gray-800 rounded-xl p-8 border border-gray-700"
+        >
+          <form class="space-y-6">
+            <div>
+              <label
+                for="contact-name"
+                class="block text-sm font-medium text-gray-300 mb-2"
+                >Name</label
+              >
+              <input
+                type="text"
+                id="contact-name"
+                name="contact-name"
+                class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              />
+            </div>
+            <div>
+              <label
+                for="contact-email"
+                class="block text-sm font-medium text-gray-300 mb-2"
+                >Email</label
+              >
+              <input
+                type="email"
+                id="contact-email"
+                name="contact-email"
+                class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              />
+            </div>
+            <div>
+              <label
+                for="message"
+                class="block text-sm font-medium text-gray-300 mb-2"
+                >Message</label
+              >
+              <textarea
+                id="message"
+                name="message"
+                rows="4"
+                class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              ></textarea>
+            </div>
+            <button
+              type="submit"
+              class="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 rounded-lg transition-colors"
+            >
+              Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gray-800">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold mb-6 text-purple-400">
+          Ready to Improve Your Communication Skills?
+        </h2>
+        <p class="text-xl text-gray-300 max-w-2xl mx-auto mb-8">
+          Start your journey to becoming a more effective communicator today.
+        </p>
+        <a
+          href="record.html"
+          class="inline-block bg-purple-600 hover:bg-purple-700 px-8 py-4 rounded-lg text-lg font-semibold transition-colors"
+        >
+          Start Recording Now
+        </a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-800 py-12">
+      <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-4 gap-8">
+          <div>
+            <h3 class="text-xl font-bold text-purple-400 mb-4">
+              Communication Evaluator
+            </h3>
+            <p class="text-gray-400">
+              Empowering better communication through AI-powered analysis and
+              feedback.
+            </p>
+          </div>
+          <div>
+            <h4 class="text-lg font-semibold text-gray-300 mb-4">
+              Quick Links
+            </h4>
+            <ul class="space-y-2">
+              <li>
+                <a href="#features" class="text-gray-400 hover:text-purple-400"
+                  >Features</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#how-it-works"
+                  class="text-gray-400 hover:text-purple-400"
+                  >How It Works</a
+                >
+              </li>
+              <li>
+                <a href="#about" class="text-gray-400 hover:text-purple-400"
+                  >About</a
+                >
+              </li>
+              <li>
+                <a href="#contact" class="text-gray-400 hover:text-purple-400"
+                  >Contact</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-lg font-semibold text-gray-300 mb-4">Resources</h4>
+            <ul class="space-y-2">
+              <li>
+                <a href="#" class="text-gray-400 hover:text-purple-400">Blog</a>
+              </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-purple-400"
+                  >Documentation</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-purple-400"
+                  >Support</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-purple-400"
+                  >Privacy Policy</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-lg font-semibold text-gray-300 mb-4">Connect</h4>
+            <ul class="space-y-2">
+              <li>
+                <a href="#" class="text-gray-400 hover:text-purple-400"
+                  >Twitter</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-purple-400"
+                  >LinkedIn</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-purple-400"
+                  >GitHub</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-purple-400"
+                  >YouTube</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div
+          class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400"
+        >
+          <p>&copy; 2025 Communication Evaluator. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
